@@ -70,34 +70,6 @@
     "react": "15.1.0",
     "shelljs": "0.6.0"
   },
-  "directories": {},
-  "dist": {
-    "shasum": "303ab14423f5eb731fb753e373cdd3774347c12a",
-    "tarball": "https://registry.npmjs.org/react-native/-/react-native-0.27.2.tgz"
-  },
-  "engines": {
-    "node": ">=4"
-  },
-  "files": [
-    "React",
-    "React.podspec",
-    "ReactAndroid",
-    "react.gradle",
-    "android",
-    "Libraries",
-    "lib",
-    "packager",
-    "cli.js",
-    "local-cli",
-    "init.sh",
-    "LICENSE",
-    "PATENTS",
-    "README.md",
-    "jestSupport",
-    ".flowconfig",
-    "flow"
-  ],
-  "homepage": "https://github.com/facebook/react-native#readme",
   "jest": {
     "haste": {
       "defaultPlatform": "ios",
