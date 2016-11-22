@@ -35,6 +35,7 @@ class ModalHostShadowNode extends LayoutShadowNode {
 
   private final Point mMinPoint = new Point();
   private final Point mMaxPoint = new Point();
+  private static final Point SIZE_POINT = new Point();
 
   /**
    * We need to set the styleWidth and styleHeight of the one child (represented by the <View/>
@@ -50,10 +51,11 @@ class ModalHostShadowNode extends LayoutShadowNode {
     Display display = wm.getDefaultDisplay();
     // getCurrentSizeRange will return the min and max width and height that the window can be
     display.getCurrentSizeRange(mMinPoint, mMaxPoint);
+    // getSize will return the dimensions of the screen in its current orientation
+    display.getSize(SIZE_POINT);
 
     int width, height;
-    int rotation = display.getRotation();
-    if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
+    if (SIZE_POINT.x < SIZE_POINT.y) {
       // If we are vertical the width value comes from min width and height comes from max height
       width = mMinPoint.x;
       height = mMaxPoint.y;
