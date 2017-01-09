@@ -302,7 +302,7 @@ var Navigator = React.createClass({
     this._handlers = {};
     this.springSystem = new rebound.SpringSystem();
     this.spring = this.springSystem.createSpring();
-    this.spring.setRestSpeedThreshold(0.05);
+    this.spring.setRestSpeedThreshold(0);
     this.spring.setCurrentValue(0).setAtRest();
     this.spring.addListener({
       onSpringEndStateChange: () => {
