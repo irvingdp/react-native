@@ -175,6 +175,18 @@ public class TouchTargetHelper {
       float eventCoords[], View view) {
     PointerEvents pointerEvents = view instanceof ReactPointerEventsView ?
         ((ReactPointerEventsView) view).getPointerEvents() : PointerEvents.AUTO;
+
+    // Views that are disabled should never be the target of pointer events. However, their children
+    // can be because some views (SwipeRefreshLayout) use enabled but still have children that can
+    // be valid targets.
+    if (!view.isEnabled()) {
+      if (pointerEvents == PointerEvents.AUTO) {
+        pointerEvents = PointerEvents.BOX_NONE;
+      } else if (pointerEvents == PointerEvents.BOX_ONLY) {
+        pointerEvents = PointerEvents.NONE;
+      }
+    }
+
     if (pointerEvents == PointerEvents.NONE) {
       // This view and its children can't be the target
       return null;
