@@ -100,16 +100,18 @@ public class ReactEditText extends EditText {
     */
    @Override
    public boolean dispatchTouchEvent(MotionEvent ev) {
-     switch (ev.getAction()) {
-       case MotionEvent.ACTION_DOWN:
-         // Disallow ScrollView to intercept touch events.
-         this.getParent().requestDisallowInterceptTouchEvent(true);
-         break;
-       case MotionEvent.ACTION_UP:
-         // Allow ScrollView to intercept touch events.
-         this.getParent().requestDisallowInterceptTouchEvent(false);
-         break;
-     }
+       if ((getInputType() & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0 ) {
+           switch (ev.getAction()) {
+               case MotionEvent.ACTION_DOWN:
+                   // Disallow ScrollView to intercept touch events.
+                   this.getParent().requestDisallowInterceptTouchEvent(true);
+                   break;
+               case MotionEvent.ACTION_UP:
+                   // Allow ScrollView to intercept touch events.
+                   this.getParent().requestDisallowInterceptTouchEvent(false);
+                   break;
+           }
+       }
      return super.dispatchTouchEvent(ev);
    }
 
