@@ -125,7 +125,7 @@ static css_dim_t RCTMeasure(void *context, float width, css_measure_mode_t width
   NSRange glyphRange = [layoutManager glyphRangeForTextContainer:textContainer];
   NSRange characterRange = [layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
   [layoutManager.textStorage enumerateAttribute:RCTShadowViewAttributeName inRange:characterRange options:0 usingBlock:^(RCTShadowView *child, NSRange range, BOOL *_) {
-    if (child != nil) {
+    if (child) {
       css_node_t *childNode = child.cssNode;
       float width = childNode->style.dimensions[CSS_WIDTH];
       float height = childNode->style.dimensions[CSS_HEIGHT];
@@ -369,6 +369,15 @@ static css_dim_t RCTMeasure(void *context, float width, css_measure_mode_t width
     }
     paragraphStyle.minimumLineHeight = lineHeight;
     paragraphStyle.maximumLineHeight = lineHeight;
+
+    // vertically center text if and only if lineHeight is specified
+    if (_lineHeight) {
+        CGFloat fontSize = _fontSize && !isnan(_fontSize) ? _fontSize : UIFont.systemFontSize;
+        fontSize *= fontSizeMultiplier;
+        [attributedString addAttribute:NSBaselineOffsetAttributeName
+                                 value:@(lineHeight/2 - fontSize/2)
+                                 range:(NSRange){0, attributedString.length}];
+    }
     [attributedString addAttribute:NSParagraphStyleAttributeName
                              value:paragraphStyle
                              range:(NSRange){0, attributedString.length}];
